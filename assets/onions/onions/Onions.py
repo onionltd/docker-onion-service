@@ -172,12 +172,18 @@ class Setup(object):
                 ports = '{frm}:{dst}'.format(frm=port_from, dst=port_dest)
                 self.add_new_service(host=host, name=name, ports=ports)
 
+    def _set_group_master_address(self, name, address):
+        'Setup onion master address (OnionBalance).'
+        group = self.get_or_create_empty_group(name)
+        group.set_master_address(address)
+
     def _setup_services_from_env(self):
         self._setup_from_env(
             (
                 (r'([A-Z0-9]+)_TOR_SERVICE_VERSION', self._set_group_version),
                 (r'([A-Z0-9]+)_TOR_SERVICE_KEY', self._set_group_key),
                 (r'([A-Z0-9]+)_TOR_SERVICE_HOSTS', self._set_group_hosts),
+                (r'([A-Z0-9]+)_TOR_SERVICE_MASTER_ADDRESS', self._set_group_master_address),
             )
         )
 

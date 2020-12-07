@@ -63,6 +63,9 @@ HiddenServiceDir {{service_group.hidden_service_dir}}
 {% if service_group.version == 3 %}
 HiddenServiceVersion 3
 {% endif %}
+{% if service_group.master_address %}
+HiddenServiceOnionBalanceInstance 1
+{% endif %}
 {% for service in service_group.services %}
 {% for port in service.ports %}
 {% if port.is_socket %}
@@ -303,6 +306,7 @@ HiddenServiceSingleHopMode 1
         'SERVICE2_PORTS': '81:80,82:8000',
         'SERVICE3_PORTS': '80:unix://unix.socket',
         'GROUP3_TOR_SERVICE_VERSION': '2',
+        'GROUP3_TOR_SERVICE_MASTER_ADDRESS': "juhu5cebdr4jlv33puderf7ow7air7ilo6ulcwrflkz5w6ttkxghnfad.onion",
         'GROUP3_TOR_SERVICE_HOSTS': '80:service4:888,81:service5:8080',
         'GROUP4_TOR_SERVICE_VERSION': '3',
         'GROUP4_TOR_SERVICE_HOSTS': '81:unix://unix2.sock',
@@ -352,6 +356,7 @@ HiddenServiceSingleHopMode 1
     assert torrc.count('HiddenServicePort 80 service5:80') == 1
     assert torrc.count('HiddenServicePort 81 unix://unix2.sock') == 1
     assert torrc.count('HiddenServiceVersion 3') == 2
+    assert torrc.count('HiddenServiceOnionBalanceInstance 1') == 1
     assert 'HiddenServiceNonAnonymousMode 1\n' in torrc
     assert 'HiddenServiceSingleHopMode 1\n' in torrc
 

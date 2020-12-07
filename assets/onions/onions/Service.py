@@ -15,6 +15,7 @@ class ServicesGroup(object):
 
     name = None
     version = None
+    master_address = None
     imported_key = False
     _default_version = 2
     _onion = None
@@ -59,6 +60,9 @@ class ServicesGroup(object):
         self.version = version
         self._onion = self.onion_map[version]()
 
+    def set_master_address(self, address):
+        self.master_address = address
+
     @property
     def hidden_service_dir(self):
         return os.path.join(self._hidden_service_dir, self.name)
@@ -93,6 +97,7 @@ class ServicesGroup(object):
         yield 'onion', self.onion_url
         yield 'urls', list(self.urls)
         yield 'version', self.version
+        yield 'master_address', self.master_address
 
     def __str__(self):
         return '{name}: {urls}'.format(name=self.name,

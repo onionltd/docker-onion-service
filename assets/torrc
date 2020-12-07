@@ -3,6 +3,9 @@ HiddenServiceDir {{service_group.hidden_service_dir}}
 {% if service_group.version == 3 %}
 HiddenServiceVersion 3
 {% endif %}
+{% if service_group.master_address %}
+HiddenServiceOnionBalanceInstance 1
+{% endif %}
 {% for service in service_group.services %}
 {% for port in service.ports %}
 {% if port.is_socket %}
