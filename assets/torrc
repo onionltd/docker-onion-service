@@ -1,3 +1,5 @@
+DataDirectory /var/lib/tor/hidden_service
+
 {% for service_group in services %}
 HiddenServiceDir {{service_group.hidden_service_dir}}
 {% if service_group.version == 3 %}
