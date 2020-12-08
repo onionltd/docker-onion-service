@@ -17,11 +17,11 @@ check:
 	pre-commit run --all-files
 
 build:
-	- echo build with tor version $(TOR_VERSION)
+	@echo build with tor version $(TOR_VERSION)
 	docker-compose -f docker-compose.build.yml build
 
 rebuild:
-	- echo rebuild with tor version $(TOR_VERSION)
+	@echo rebuild with tor version $(TOR_VERSION)
 	docker-compose -f docker-compose.build.yml build --no-cache
 
 run: build
