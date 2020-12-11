@@ -26,7 +26,7 @@ RUN mkdir -p /etc/tor/ ${HOME}/.tor && \
 COPY assets/onions /usr/local/src/onions
 COPY assets/torrc /var/local/tor/torrc.tpl
 
-RUN apk add --no-cache musl-dev gcc py-setuptools python3 python3-dev \
+RUN apk add --no-cache musl-dev gcc py3-setuptools python3 python3-dev \
         && cd /usr/local/src/onions && python3 setup.py install \
         && apk del gcc musl-dev py-setuptools python3-dev
 
